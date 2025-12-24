@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Buddy Assistant</title>
+     <link rel="stylesheet"href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Animated Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1> Student Buddy Assistant</h1>
+            <p>Your intelligent academic companion for success</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('notes')">
+                <span>📝</span> Notes
+            </button>
+            <button class="nav-tab" onclick="showTab('tasks')">
+                <span>✅</span> Tasks
+            </button>
+            <button class="nav-tab" onclick="showTab('timer')">
+                <span>⏰</span> Timer
+            </button>
+            <button class="nav-tab" onclick="showTab('grades')">
+                <span>📊</span> Grades
+            </button>
+        </nav>
+
+        <!-- Notes Tab -->
+        <div id="notes" class="tab-content active">
+            <h2 class="section-title">📚 Smart Notes</h2>
+            <div class="form-container">
+                <div class="input-group">
+                    <input type="text" id="noteTitle" class="form-input" placeholder="✏️ Enter note title..." maxlength="100">
+                </div>
+                <div class="input-group">
+                    <textarea id="noteContent" class="form-input form-textarea" placeholder="📝 Write your brilliant thoughts here..."></textarea>
+                </div>
+                <button class="btn" onclick="addNote()">
+                    <span>➕</span> Create Note
+                </button>
+            </div>
+            <div id="notesContainer" class="notes-grid"></div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div id="tasks" class="tab-content">
+            <h2 class="section-title">🎯 Task Management</h2>
+            <div class="form-container">
+                <div class="task-form">
+                    <div class="input-group">
+                        <input type="text" id="taskInput" class="form-input" placeholder="🚀 What needs to be done?">
+                    </div>
+                    <div class="input-group">
+                        <select id="taskPriority" class="form-input">
+                            <option value="low">🟢 Low Priority</option>
+                            <option value="medium">🟡 Medium Priority</option>
+                            <option value="high">🔴 High Priority</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="addTask()">
+                        <span>✨</span> Add Task
+                    </button>
+                </div>
+            </div>
+            <div id="tasksContainer" class="tasks-list"></div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTasks">0</div>
+                    <div class="stat-label">📋 Total Tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completedTasks">0</div>
+                    <div class="stat-label">✅ Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingTasks">0</div>
+                    <div class="stat-label">⏳ Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="productivityRate">0%</div>
+                    <div class="stat-label">🚀 Productivity</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Tab -->
+        <div id="timer" class="tab-content">
+            <h2 class="section-title">⏰ Focus Timer</h2>
+            <div class="timer-container">
+                <div class="timer-presets">
+                    <button class="preset-btn" onclick="setTimer(25)">🍅 Pomodoro (25m)</button>
+                    <button class="preset-btn" onclick="setTimer(45)">📖 Study (45m)</button>
+                    <button class="preset-btn" onclick="setTimer(60)">🎯 Deep Work (1h)</button>
+                    <button class="preset-btn" onclick="setTimer(5)">☕ Break (5m)</button>
+                </div>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" onclick="startTimer()">
+                        <span>▶️</span> Start
+                    </button>
+                    <button class="btn btn-secondary" onclick="pauseTimer()">
+                        <span>⏸️</span> Pause
+                    </button>
+                    <button class="btn btn-danger" onclick="resetTimer()">
+                        <span>🔄</span> Reset
+                    </button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="sessionsToday">0</div>
+                        <div class="stat-label">🎯 Sessions Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalStudyTime">0</div>
+                        <div class="stat-label">⏱️ Total Time (min)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="streakDays">0</div>
+                        <div class="stat-label">🔥 Streak (days)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grades Tab -->
+        <div id="grades" class="tab-content">
+            <h2 class="section-title">📊 Grade Tracker</h2>
+            <div class="form-container">
+                <div class="grade-form">
+                    <div class="input-group">
+                        <input type="text" id="subjectInput" class="form-input" placeholder="📚 Subject (e.g., Mathematics)">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="assignmentInput" class="form-input" placeholder="📝 Assignment (e.g., Midterm Exam)">
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="gradeInput" class="form-input" min="0" max="100" placeholder="💯 Grade %">
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="creditHours" class="form-input" min="1" max="6" placeholder="🏫 Credit Hours" value="3">
+                    </div>
+                    <button class="btn" onclick="addGrade()">
+                        <span>📈</span> Add Grade
+                    </button>
+                </div>
+            </div>
+            
+            <table class="grades-table" id="gradesTable">
+                <thead>
+                    <tr>
+                        <th>📚 Subject</th>
+                        <th>📝 Assignment</th>
+                        <th>💯 Grade</th>
+                        <th>🏆 Letter</th>
+                        <th>🏫 Credits</th>
+                        <th>🎯 Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="gradesBody">
+                </tbody>
+            </table>
+
+            <div class="stats-grid" style="margin-top: 30px;">
+                <div class="stat-card">
+                    <div class="stat-number" id="averageGrade">0</div>
+                    <div class="stat-label">📊 Average Grade</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCredits">0</div>
+                    <div class="stat-label">🏫 Total Credits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="highestGrade">0</div>
+                    <div class="stat-label">🌟 Highest Grade</div>
+                </div>
+            </div>
+
+            <div class="gpa-display">
+                <div class="gpa-label">🎓 Weighted GPA</div>
+                <div class="gpa-value" id="gpaDisplay">0.00</div>
+            </div>
+        </div>
+    </div>
+
+      <script src="script.js"></script>
+  </body>
+</html>
+
+      
