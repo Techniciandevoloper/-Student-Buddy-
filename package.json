@@ -1,0 +1,16 @@
+{
+    "name": "my-fullstack-app",
+    "version": "1.0.0",
+    "description": "Frontend with future backened",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.22.1",
+        "node.js": "^0.0.1-security"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
