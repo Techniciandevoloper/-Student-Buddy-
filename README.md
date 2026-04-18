@@ -8,6 +8,6 @@
 |  **Smart Notes** | Rich text notes with local storage & search 
 |  **Task Manager** | Priority levels, stats, productivity tracking 
 |  **Focus Timer** | Pomodoro(25m), Study(45m), Deep Work(1h), Break(5m) 
-|  **Grade Tracker** | GPA calculator, weighted credits, performance stats 
+|  **Grade Tracker** | GPA calculator, weighted credit , performance stats 
 
 
